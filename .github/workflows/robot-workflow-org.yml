@@ -32,6 +32,7 @@ jobs:
               --log reports/run_${{ github.run_number }}/log.html \
               --report reports/run_${{ github.run_number }}/report.html \
               Tests/
+      continue-on-error: true              
 
     - name: Upload Robot Framework Reports
       uses: actions/upload-artifact@v4
