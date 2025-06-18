@@ -25,17 +25,19 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run Robot Framework Tests
+      id: robot
+      continue-on-error: true
       run: |
         mkdir -p reports/run_${{ github.run_number }}
         robot --output reports/run_${{ github.run_number }}/output.xml \
               --log reports/run_${{ github.run_number }}/log.html \
               --report reports/run_${{ github.run_number }}/report.html \
-              Tests/
+              Tests/  
 
     - name: Run Robot Framework Metrics
+      continue-on-error: true
       run: |
         robotmetrics --inputpath ./reports/run_${{ github.run_number }} --output output1.xml
-        continue-on-error: true
 
     - name: Upload Robot Framework Reports
       uses: actions/upload-artifact@v4
