@@ -48,17 +48,12 @@ The suite currently covers the following API endpoints:
 3.  **Configure API Key:**
     The tests require a valid API key from [TheCatAPI](https://thecatapi.com/signup) for authenticated endpoints like `/votes`.
 
-    The framework is pre-configured to use the key provided in the prompt: `ylX4blBYT9FaoVd6OhvR`.
+    The framework is pre-configured to use the key provided in the prompt: `DEMO-API-KEY `.
 
-    This key is set in the `resources/variables.py` file.
+    This key is set in the `configuration/api_suite_variables.robot` file.
 
-    ```python
-    # resources/variables.py
-
-    # The key from the prompt is used here.
-    # For full functionality, you may need to replace it with your own key from thecatapi.com
-    API_KEY = "ylX4blBYT9FaoVd6OhvR"
     ```
+    ${API_KEY}     DEMO-API-KEY 
     **Note:** The API key specified in the prompt (`ylX4blBYT9FaoVd6OhvR`) appears to be invalid or a placeholder. The `/votes` tests will fail with a `401 Unauthorized` error unless you sign up for a free, valid key and update this variable.
 
 ---
@@ -81,11 +76,13 @@ You can run the entire test suite or specific parts using the `robot` command fr
     You can run tests with specific tags (e.g., `smoke`, `negative`, `schema`).
     ```bash
     # Run only smoke tests
-    robot --include smoke tests/
+    robot -d results --include smoke tests/
 
     # Run only tests for the 'votes' endpoint
-    robot --include votes tests/
+    robot -d results --include votes tests/
     ```
+4.  **Run tests from Github Actions:**
+    You can run tests by navigating to Github Actions "EasyPay Cat API Assignment" workflow and clicking the Run "Workflow" button 
 
 ---
 
