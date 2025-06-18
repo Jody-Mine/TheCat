@@ -1,0 +1,55 @@
+name: EasyPay Cat API Assignment
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  Robotframework_tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout1
+        uses: actions/checkout@v2
+        
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      
+      - name: Install robotframework
+        continue-on-error: true
+        run: |
+          python3 -m pip install --upgrade pip
+          cat requirements.txt | xargs -n 1 python3 -m pip install
+
+      - name: Run robotframework tests
+        run: |
+          robot -d Results -x robot.xml -v Tests/
+      - uses: vimtor/action-zip@v1
+        with:
+          files: Results/
+          dest: results.zip
+          
+      - name: Archive test reports
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Robot-reports-${{ github.run_number }}
+          path: ./Results
+
+#  generate_github_reports:
+#      if: always()
+#      needs: [Robotframework_tests]
+#      runs-on: ubuntu-latest
+#      steps:
+#      - uses: actions/checkout@v2
+#      - name: Download reports
+#        uses: actions/download-artifact@v1
+#        with:
+#          name: Robot-reports-${{ github.run_number }}
+#      - name: Send report to commit
+#        uses: joonvena/robotframework-reporter-action@v2.3
+#        with:
+#          report_path: Robot-reports-${{ github.run_number }}
+#          gh_access_token: ${{ github.token }}
