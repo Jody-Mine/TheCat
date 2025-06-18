@@ -31,7 +31,11 @@ jobs:
         robot --output reports/run_${{ github.run_number }}/output.xml \
               --log reports/run_${{ github.run_number }}/log.html \
               --report reports/run_${{ github.run_number }}/report.html \
-              Tests/ && robotmetrics --inputpath ./reports/run_${{ github.run_number }} --output output1.xml
+              Tests/
+
+    - name: Run Robot Framework Metrics
+      run: |
+        robotmetrics --inputpath ./reports/run_${{ github.run_number }} --output output1.xml
       # continue-on-error: true
 
     - name: Upload Robot Framework Reports
