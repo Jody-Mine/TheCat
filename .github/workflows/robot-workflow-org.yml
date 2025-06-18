@@ -31,7 +31,7 @@ jobs:
         robot --output reports/run_${{ github.run_number }}/output.xml \
               --log reports/run_${{ github.run_number }}/log.html \
               --report reports/run_${{ github.run_number }}/report.html \
-              tests/
+              Tests/
 
     - name: Upload Robot Framework Reports
       uses: actions/upload-artifact@v4
