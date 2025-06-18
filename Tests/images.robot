@@ -1,5 +1,6 @@
 *** Settings ***
-Resource          ../resources/api_keywords.robot
+Resource          ../resources/api_assertion_keywords.robot
+Resource          ../resources/api_endpoint_keywords.robot
 Test Tags         images
 
 *** Test Cases ***
@@ -18,8 +19,18 @@ Search For Images By Breed
     ${response}=    Search For Images    params=${params}
     Response Status Code Should Be    ${response}    200
     Response Body Should Be Non-Empty        ${response}
-    ${breed_id}=    Set Variable    ${response.json()}[0]['breeds'][0]['id']
-    Should Be Equal As Strings    ${breed_id}    abys    msg=Image returned was not for the correct breed.
+    ${breed_id}  Get Value From Json    ${response.json()}   $..breeds[0].id
+    Should Be Equal As Strings    ${breed_id}[0]    abys    msg=Image returned was not for the correct breed.
+
+Search For Images By Breed "FORCED FAILURE"
+    [Documentation]    Searches for an image of a specific breed (Abyssinian) and verifies the breed ID.
+    [Tags]    positive
+    ${params}=    Create Dictionary    limit=1    breed_ids=abys
+    ${response}=    Search For Images    params=${params}
+    Response Status Code Should Be    ${response}    200
+    Response Body Should Be Non-Empty        ${response}
+    ${breed_id}  Get Value From Json    ${response.json()}   $..breeds[0].id
+    Should Be Equal As Strings    ${breed_id}[0]    fail    msg=Image returned was not for the correct breed.
 
 Validate Image Search Schema
     [Documentation]    Performs an image search and validates the JSON schema.
@@ -35,5 +46,4 @@ Search For Image With Invalid Breed ID
     ${params}=    Create Dictionary    limit=1    breed_ids=invalid-breed-id
     ${response}=    Search For Images    params=${params}
     Response Status Code Should Be    ${response}    200
-    ${json}=    To JSON    ${response.content}
-    Should Be Empty    ${json}    msg=Expected an empty list for an invalid breed search.
+    Should Be Empty    ${response.json()}    msg=Expected an empty list for an invalid breed search.

@@ -1,12 +1,50 @@
 {
-  "type": "object",
-  "properties": {
-    "id": { "type": "integer" },
-    "image_id": { "type": "string" },
-    "sub_id": { "type": ["string", "null"] },
-    "created_at": { "type": "string", "format": "date-time" },
-    "value": { "type": "integer" },
-    "country_code": { "type": "string" }
-  },
-  "required": ["id", "image_id", "created_at", "value"]
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "number"
+      },
+      "image_id": {
+        "type": "string"
+      },
+      "sub_id": {
+        "type": "object"
+      },
+      "created_at": {
+        "type": "string"
+      },
+      "value": {
+        "type": "number"
+      },
+      "country_code": {
+        "type": "object"
+      },
+      "image": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "url"
+        ]
+      }
+    },
+    "required": [
+      "id",
+      "image_id",
+      "sub_id",
+      "created_at",
+      "value",
+      "country_code",
+      "image"
+    ]
+  }
 }

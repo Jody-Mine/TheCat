@@ -92,15 +92,27 @@ You can run the entire test suite or specific parts using the `robot` command fr
 ## Project Structure
 
 ├── README.md # This file
+
 ├── requirements.txt # Python dependencies
+
 ├── resources/ # Reusable components
+
 │ ├── api_keywords.robot # Custom keywords for API interaction
+
 │ ├── variables.py # Global variables (URL, API Key)
+
 │ └── schemas/ # JSON schemas for response validation
+
 │ ├── breeds_schema.json
+
 │ ├── images_search_schema.json
+
 │ └── votes_schema.json
-└── tests/ # Test suite files
-├── breeds.robot
-├── images.robot
-└── votes.robot
+
+├── tests/ # Test suite files
+
+│ └── breeds.robot
+
+│ └── images.robot
+
+│ └── votes.robot

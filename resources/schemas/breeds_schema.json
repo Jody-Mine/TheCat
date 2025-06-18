@@ -1,13 +1,154 @@
 {
-  "type": "object",
-  "properties": {
-    "weight": { "type": "object", "required": ["imperial", "metric"] },
-    "id": { "type": "string" },
-    "name": { "type": "string" },
-    "temperament": { "type": "string" },
-    "origin": { "type": "string" },
-    "description": { "type": "string" },
-    "life_span": { "type": "string" }
-  },
-  "required": ["id", "name", "weight", "temperament", "origin", "description"]
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "weight": {
+        "type": "object",
+        "properties": {
+          "imperial": {
+            "type": "string"
+          },
+          "metric": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "imperial",
+          "metric"
+        ]
+      },
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "temperament": {
+        "type": "string"
+      },
+      "origin": {
+        "type": "string"
+      },
+      "country_codes": {
+        "type": "string"
+      },
+      "country_code": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "life_span": {
+        "type": "string"
+      },
+      "indoor": {
+        "type": "number"
+      },
+      "alt_names": {
+        "type": "string"
+      },
+      "adaptability": {
+        "type": "number"
+      },
+      "affection_level": {
+        "type": "number"
+      },
+      "child_friendly": {
+        "type": "number"
+      },
+      "dog_friendly": {
+        "type": "number"
+      },
+      "energy_level": {
+        "type": "number"
+      },
+      "grooming": {
+        "type": "number"
+      },
+      "health_issues": {
+        "type": "number"
+      },
+      "intelligence": {
+        "type": "number"
+      },
+      "shedding_level": {
+        "type": "number"
+      },
+      "social_needs": {
+        "type": "number"
+      },
+      "stranger_friendly": {
+        "type": "number"
+      },
+      "vocalisation": {
+        "type": "number"
+      },
+      "experimental": {
+        "type": "number"
+      },
+      "hairless": {
+        "type": "number"
+      },
+      "natural": {
+        "type": "number"
+      },
+      "rare": {
+        "type": "number"
+      },
+      "rex": {
+        "type": "number"
+      },
+      "suppressed_tail": {
+        "type": "number"
+      },
+      "short_legs": {
+        "type": "number"
+      },
+      "wikipedia_url": {
+        "type": "string"
+      },
+      "hypoallergenic": {
+        "type": "number"
+      },
+      "reference_image_id": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "weight",
+      "id",
+      "name",
+      "temperament",
+      "origin",
+      "country_codes",
+      "country_code",
+      "description",
+      "life_span",
+      "indoor",
+      "alt_names",
+      "adaptability",
+      "affection_level",
+      "child_friendly",
+      "dog_friendly",
+      "energy_level",
+      "grooming",
+      "health_issues",
+      "intelligence",
+      "shedding_level",
+      "social_needs",
+      "stranger_friendly",
+      "vocalisation",
+      "experimental",
+      "hairless",
+      "natural",
+      "rare",
+      "rex",
+      "suppressed_tail",
+      "short_legs",
+      "wikipedia_url",
+      "hypoallergenic",
+      "reference_image_id"
+    ]
+  }
 }

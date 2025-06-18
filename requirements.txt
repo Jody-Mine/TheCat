@@ -2,3 +2,5 @@ robotframework
 robotframework-requests
 robotframework-jsonlibrary
 robotframework-jsonschemalibrary
+requests~=2.32.4
+genson~=1.3.0
