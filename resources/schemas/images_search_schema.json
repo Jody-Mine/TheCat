@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "url": { "type": "string", "format": "uri" },
+    "width": { "type": "integer" },
+    "height": { "type": "integer" },
+    "breeds": { "type": "array" }
+  },
+  "required": ["id", "url", "width", "height"]
+}

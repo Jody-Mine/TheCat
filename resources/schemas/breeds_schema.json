@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "weight": { "type": "object", "required": ["imperial", "metric"] },
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "temperament": { "type": "string" },
+    "origin": { "type": "string" },
+    "description": { "type": "string" },
+    "life_span": { "type": "string" }
+  },
+  "required": ["id", "name", "weight", "temperament", "origin", "description"]
+}
