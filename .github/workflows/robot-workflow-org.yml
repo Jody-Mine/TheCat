@@ -1,55 +1,41 @@
 name: EasyPay Cat API Assignment
 
 on:
+  push:
+    branches:
+      - master
+  pull_request:
   workflow_dispatch:
 
 jobs:
-
-  Robotframework_tests:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout1
-        uses: actions/checkout@v2
-        
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.11
-      
-      - name: Install robotframework
-        continue-on-error: true
-        run: |
-          python3 -m pip install --upgrade pip
-          cat requirements.txt | xargs -n 1 python3 -m pip install
-
-      - name: Run robotframework tests
-        run: |
-          robot -d Results -x robot.xml -v Tests/
-      - uses: vimtor/action-zip@v1
-        with:
-          files: Results/
-          dest: results.zip
-          
-      - name: Archive test reports
-        uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: Robot-reports-${{ github.run_number }}
-          path: ./Results
-
-#  generate_github_reports:
-#      if: always()
-#      needs: [Robotframework_tests]
-#      runs-on: ubuntu-latest
-#      steps:
-#      - uses: actions/checkout@v2
-#      - name: Download reports
-#        uses: actions/download-artifact@v1
-#        with:
-#          name: Robot-reports-${{ github.run_number }}
-#      - name: Send report to commit
-#        uses: joonvena/robotframework-reporter-action@v2.3
-#        with:
-#          report_path: Robot-reports-${{ github.run_number }}
-#          gh_access_token: ${{ github.token }}
+    Run-Test:
+      runs-on: ubuntu-20.04
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v1
+        - uses: actions/cache@v2
+          id: cache
+          with:
+            path: ~/.cache/pip
+            key: ${{ runner.os }}-pip-${{ hashFiles('**/requirement.txt') }}
+        - name: Install pip dependencies
+          run: |
+            pip install --upgrade pip
+            pip install -r requirement.txt
+        - name: Run Test
+          run: python -m robot --outputdir results Tests/
+        - name: Run Test and create report
+          run: python -m robot -d reports -x junit-report.xml "testcases/functional_tests"
+        - name: Run Robot Framework tests and generate report
+          run: |
+             echo "ROBOT_RC=$?" >> "$GITHUB_ENV"  
+        # - name: If Auto Test Pass Rate Not 100%, Job Will Fail
+        #   if: env.ROBOT_RC != '0'
+        #   run: |
+        #     echo "Auto Test Pass Rate Not 100%, Please Check Test Result"
+        #     exit 1
+        - name: Publish test results
+          uses: actions/upload-artifact@v2
+          with:
+            name: robot-test-results
+            path: results
