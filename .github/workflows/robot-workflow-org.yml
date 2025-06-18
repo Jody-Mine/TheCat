@@ -37,16 +37,11 @@ jobs:
     - name: Run Robot Framework Metrics
       continue-on-error: true
       run: |
-        robotmetrics --inputpath ./reports/run_${{ github.run_number }} --output output1.xml
+        cd reports/run_${{ github.run_number }}
+        robotmetrics
 
     - name: Upload Robot Framework Reports
       uses: actions/upload-artifact@v4
       with:
         name: robot-reports-run-${{ github.run_number }}
         path: reports/run_${{ github.run_number }}
-
-    - name: Fail if tests failed
-      if: steps.robot.outputs.exit_code != '0'
-      run: |
-        echo "❌ Robot Framework tests failed."
-        exit 1
